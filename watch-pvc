@@ -1,0 +1,16 @@
+#!/bin/bash
+
+type -P watchmedo &>/dev/null && echo "watchmedo found" || echo "This program requires Python's watchmedo"
+
+
+COMMAND="$1"
+PATTERN="$2"
+
+ACTION='echo "${watch_src_path} ${watch_event_type}"; "$COMMAND"'
+TARGET=' "${watch_src_path}"'
+
+echo "Watching file $PATTERN"
+
+watchmedo shell-command \
+	  -c "$COMMAND" \
+	  -D -p "$PATTERN"
